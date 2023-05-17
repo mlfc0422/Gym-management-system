@@ -8,6 +8,9 @@ public class DatabaseConnector {
     public DatabaseConnector(String url, String username, String password) throws SQLException {
         conn = DriverManager.getConnection(url, username, password);
     }
+    public Connection getConnection() {
+        return conn;
+    }
 
     public void closeConnection() throws SQLException {
         if (conn != null) {
