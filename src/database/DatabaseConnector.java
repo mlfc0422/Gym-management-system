@@ -8,6 +8,7 @@ public class DatabaseConnector {
     public DatabaseConnector(String url, String username, String password) throws SQLException {
         conn = DriverManager.getConnection(url, username, password);
     }
+
     public Connection getConnection() {
         return conn;
     }
@@ -24,14 +25,17 @@ public class DatabaseConnector {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
-            statement = conn.prepareStatement(query);
-            resultSet = statement.executeQuery();
-            return resultSet;
-            // 处理查询结果
+        statement = conn.prepareStatement(query);
+        resultSet = statement.executeQuery();
+        return resultSet;
+        // 处理查询结果
     }
 
     public void performUpdate(String update) throws SQLException {
         // 执行数据库更新操作
         // 使用 conn 进行更新操作
+        PreparedStatement statement = null;
+        statement = conn.prepareStatement(update);
+        statement.executeUpdate();
     }
 }

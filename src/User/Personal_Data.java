@@ -6,7 +6,6 @@ public class Personal_Data {
     private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
     private final String username = "root";
     private final String password = "liyu422321";
-
     public void personal_data() throws SQLException {
         DatabaseConnector dc = new DatabaseConnector(url, username, password);
         Connection connection = null;
@@ -33,7 +32,6 @@ public class Personal_Data {
                     e.printStackTrace();
                 }
             }
-
             // 关闭 Connection
             if (connection != null) {
                 try {
