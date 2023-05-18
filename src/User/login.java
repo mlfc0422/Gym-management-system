@@ -13,24 +13,28 @@ public class login {
     private final String username = "root";
     private final String password = "liyu422321";
 
-    public void logOn() throws SQLException {
+    public String logOn() throws SQLException {
+
         DatabaseConnector dc = new DatabaseConnector(url, username, password);
         Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
+        String cus_id = "";
 
         try {
-            System.out.println("请输入用户名：");
-            String userId = sc.nextLine();
-            System.out.println("请输入密码：");
-            String password = sc.nextLine();
+            System.out.println("请输入账号：");
+            cus_id = sc.nextLine();
 
-            String query = "SELECT * FROM customer WHERE cus_id = ? AND vip_lvl = ?";
+            System.out.println("请输入密码：");
+            String cus_pswd = sc.nextLine();
+
+            String query = "SELECT * FROM register WHERE cus_id = ? AND cus_pswd = ?";
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                pstmt.setString(1, userId);
-                pstmt.setString(2, password);
+                pstmt.setString(1, cus_id);
+                pstmt.setString(2, cus_pswd);
                 try (ResultSet resultSet = pstmt.executeQuery()) {
                     if (resultSet.next()) {
                         System.out.println("登录成功！");
+
                     } else {
                         System.out.println("用户名或密码错误，登录失败！");
                     }
@@ -50,6 +54,7 @@ public class login {
                 }
             }
         }
+        return cus_id;
     }
 }
 

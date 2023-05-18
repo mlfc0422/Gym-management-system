@@ -1,8 +1,9 @@
 package User;
 
-import database.DatabaseConnector;
 import java.sql.*;
 import java.util.Scanner;
+import java.util.Random;
+import database.DatabaseConnector;
 
 public class registration {
     private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
@@ -13,29 +14,88 @@ public class registration {
         DatabaseConnector dc = new DatabaseConnector(url, username, password);
         Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
-        try{
-            System.out.println("请输入用户名：");
-            String userId = sc.nextLine();
-            System.out.println("请输入密码：");
-            String password = sc.nextLine();
+        ResultSet resultSet = null;
+        int b = 0;
 
-            String query = "INSERT INTO customer (cus_id, vip_lvl) VALUES (?, ?)";
-            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                pstmt.setString(1, userId);
-                pstmt.setString(2, password);
-                int rowsAffected = pstmt.executeUpdate();
+        try {
+            while (true) {
+                System.out.print("请输入账号: ");
+                String cus_id = sc.nextLine();
+                System.out.print("请输入密码: ");
+                String cus_pswd = sc.nextLine();
+                System.out.print("请再次输入密码: ");
+                String cus_pswd2 = sc.nextLine();
 
-                if (rowsAffected > 0) {
-                    System.out.println("注册成功！");
+                Random r = new Random();
+                int i = r.nextInt(9000) + 1000;
+                System.out.println("请输入以下验证码: " + i);
+                int i2 = sc.nextInt();
+                sc.nextLine(); // 消耗换行符
+
+                String query = "SELECT * FROM register WHERE cus_id = ?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, cus_id);
+                resultSet = pstmt.executeQuery();
+
+                if (cus_pswd.equals(cus_pswd2)) {
+                    if (i2 == i) {
+                        if (resultSet.next()) {
+                            System.out.println("用户名已存在!");
+                            continue;
+                        } else {
+                            try {
+                                String registerQuery = "INSERT INTO register (cus_id, cus_pswd) VALUES (?, ?)";
+                                pstmt = connection.prepareStatement(registerQuery);
+                                pstmt.setString(1, cus_id);
+                                pstmt.setString(2, cus_pswd);
+                                b = pstmt.executeUpdate();
+
+                                String customerQuery = "INSERT INTO customer (cus_id, cus_pswd) VALUES (?, ?)";
+                                pstmt = connection.prepareStatement(customerQuery);
+                                pstmt.setString(1, cus_id);
+                                pstmt.setString(2, cus_pswd);
+                                // 设置其他需要插入的信息
+                                b = pstmt.executeUpdate();
+                            } catch (Exception e) {
+                                System.out.println("注册失败，异常原因: " + e.getMessage());
+                            }
+
+                            if (b != 0) {
+                                System.out.println("注册成功!");
+                                break;
+                            }
+                        }
+                    } else {
+                        System.out.println("验证码错误。");
+                        continue;
+                    }
                 } else {
-                    System.out.println("注册失败，请重试！");
+                    System.out.println("两次密码不一致，请确认您的密码。");
+                    continue;
                 }
-            } catch (SQLException e) {
-                System.out.println("注册失败，请重试！错误信息：" + e.getMessage());
             }
         } catch (Exception e) {
-            System.out.println("注册失败，请重试！错误信息：" + e.getMessage());
+            System.out.println("注册失败，请重新尝试！错误信息：" + e.getMessage());
+        } finally {
+            // 关闭 ResultSet
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // 关闭 Connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
 }
+
