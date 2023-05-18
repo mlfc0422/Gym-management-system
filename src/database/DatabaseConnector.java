@@ -18,9 +18,16 @@ public class DatabaseConnector {
         }
     }
 
-    public void performQuery(String query) throws SQLException {
+    public ResultSet performQuery(String query) throws SQLException {
         // 执行数据库查询操作
         // 使用 conn 进行查询操作
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+            statement = conn.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            return resultSet;
+            // 处理查询结果
     }
 
     public void performUpdate(String update) throws SQLException {

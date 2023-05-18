@@ -7,7 +7,6 @@ public class Main {
         System.out.println("欢迎使用");
         System.out.println("请选择你的身份");
         Personal_Data personalData = new Personal_Data();
-
         // 调用personal_data方法
         try {
             personalData.personal_data();
