@@ -12,13 +12,14 @@ public class login {
     private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
     private final String username = "root";
     private final String password = "liyu422321";
+    String cus_id = "";
 
-    public String logOn() throws SQLException {
+    public boolean logOn() throws SQLException {
 
         DatabaseConnector dc = new DatabaseConnector(url, username, password);
         Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
-        String cus_id = "";
+        boolean loginSuccess = false;
 
         try {
             System.out.println("请输入账号：");
@@ -34,9 +35,10 @@ public class login {
                 try (ResultSet resultSet = pstmt.executeQuery()) {
                     if (resultSet.next()) {
                         System.out.println("登录成功！");
-
+                        loginSuccess = true;
                     } else {
                         System.out.println("用户名或密码错误，登录失败！");
+                        cus_id = ""; // 清空 cus_id
                     }
                 }
             } catch (SQLException e) {
@@ -54,7 +56,11 @@ public class login {
                 }
             }
         }
+        return loginSuccess;
+    }
+    public String getCustomerId() {
         return cus_id;
     }
+
 }
 
