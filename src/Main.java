@@ -1,16 +1,17 @@
-import User.Personal_Data;
-import User.login;
-import User.registration;
-
+import User.*;
+import Employee.emp_login;
 import java.sql.SQLException;
 import java.util.Scanner;
+import  Appointment.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner sc = new Scanner(System.in);
         Personal_Data pd = new Personal_Data();
-        login lg = new login();
+        user_login lg = new user_login();
+        emp_login lg1 = new emp_login();
         registration rt = new registration();
+        BookLesson bk = new BookLesson();
         String cus_id = "";
 
         System.out.println("欢迎使用健身房管理系统");
@@ -40,11 +41,11 @@ public class Main {
             int Account = sc.nextInt();
             while(true) {
                 if (Account == 1) {
-                    boolean loginSuccess = lg.logOn();
+                    boolean loginSuccess = lg.logOn1();
                     if (loginSuccess) {
                         cus_id = lg.getCustomerId();
                         while (true) {
-                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.其他功能");
+                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.课程预约");
                             int function = sc.nextInt();
                             switch (function) {
                                 case 1: {
@@ -52,7 +53,7 @@ public class Main {
                                     break;
                                 }
                                 case 2: {
-                                    // 其他功能代码
+                                    bk.bookLesson(cus_id);
                                     break;
                                 }
                                 default: {
@@ -67,7 +68,7 @@ public class Main {
                 } else if (Account == 2) {
                     rt.register();
                     while(true) {
-                        boolean loginSuccess = lg.logOn();
+                        boolean loginSuccess = lg.logOn1();
                         if (loginSuccess) {
                             while (true) {
                                 System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.其他功能");
@@ -78,7 +79,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        // 其他功能代码
+
                                         break;
                                     }
                                     default: {
@@ -94,7 +95,7 @@ public class Main {
                 }
             }
         } else if (identity == 2) {
-            // 员工身份代码
+            lg1.logOn2();
         }
     }
 }

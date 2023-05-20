@@ -1,5 +1,7 @@
 package User;
 import java.sql.*;
+import java.util.Scanner;
+
 import database.DatabaseConnector;
 
 public class Personal_Data {
@@ -20,10 +22,22 @@ public class Personal_Data {
             while (resultSet.next()) {
                 // 从结果集中获取数据并进行处理
                 cus_id = resultSet.getString("cus_id");
-                int cus_pswd = resultSet.getInt("cus_pswd");
+                String cus_pswd = resultSet.getString("cus_pswd");
+                String cus_name = resultSet.getString("cus_name");
+                int vip_lvl = resultSet.getInt("vip_lvl");
+                String cus_tel = resultSet.getString("cus_tel");
+                String cus_hgt = resultSet.getString("cus_tel");
+                String cus_wgt = resultSet.getString("cus_wgt");
+                String cus_age = resultSet.getString("cus_age");
 
                 System.out.println("账号: " + cus_id);
                 System.out.println("密码: " + cus_pswd);
+                System.out.println("姓名: " + cus_name);
+                System.out.println("会员等级: " + vip_lvl);
+                System.out.println("电话: " + cus_tel);
+                System.out.println("身高: " + cus_hgt);
+                System.out.println("体重: " + cus_wgt);
+                System.out.println("年龄: " + cus_age);
             }
         } catch (SQLException e) {
             System.out.println("查询个人信息出错：" + e.getMessage());
@@ -45,5 +59,13 @@ public class Personal_Data {
                 }
             }
         }
+    }
+
+    public void ed_person_data(String cus_id) throws SQLException
+    {
+        DatabaseConnector dc = new DatabaseConnector(url, username, password);
+        Connection connection = null;
+        Scanner sc = new Scanner(System.in);
+
     }
 }

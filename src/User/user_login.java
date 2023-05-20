@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class login {
+public class user_login {
     private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
     private final String username = "root";
     private final String password = "liyu422321";
     String cus_id = "";
 
-    public boolean logOn() throws SQLException {
+    public boolean logOn1() throws SQLException {
 
         DatabaseConnector dc = new DatabaseConnector(url, username, password);
         Connection connection = dc.getConnection();
