@@ -1,7 +1,5 @@
 package User;
 import java.sql.*;
-import java.util.Scanner;
-
 import database.DatabaseConnector;
 
 public class Personal_Data {
@@ -32,12 +30,12 @@ public class Personal_Data {
 
                 System.out.println("账号: " + cus_id);
                 System.out.println("密码: " + cus_pswd);
-                System.out.println("姓名: " + cus_name);
+                System.out.println("昵称: " + cus_name);
                 System.out.println("会员等级: " + vip_lvl);
                 System.out.println("电话: " + cus_tel);
-                System.out.println("身高: " + cus_hgt);
-                System.out.println("体重: " + cus_wgt);
-                System.out.println("年龄: " + cus_age);
+                System.out.println("身高: " + cus_hgt+"m");
+                System.out.println("体重: " + cus_wgt+"kg");
+                System.out.println("年龄: " + cus_age+"岁");
             }
         } catch (SQLException e) {
             System.out.println("查询个人信息出错：" + e.getMessage());
@@ -59,13 +57,5 @@ public class Personal_Data {
                 }
             }
         }
-    }
-
-    public void ed_person_data(String cus_id) throws SQLException
-    {
-        DatabaseConnector dc = new DatabaseConnector(url, username, password);
-        Connection connection = null;
-        Scanner sc = new Scanner(System.in);
-
     }
 }

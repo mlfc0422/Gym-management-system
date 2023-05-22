@@ -12,6 +12,7 @@ public class Main {
         emp_login lg1 = new emp_login();
         registration rt = new registration();
         BookLesson bk = new BookLesson();
+        EdPersonData ed = new EdPersonData();
         String cus_id = "";
 
         System.out.println("欢迎使用健身房管理系统");
@@ -45,7 +46,7 @@ public class Main {
                     if (loginSuccess) {
                         cus_id = lg.getCustomerId();
                         while (true) {
-                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.课程预约");
+                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程");
                             int function = sc.nextInt();
                             switch (function) {
                                 case 1: {
@@ -53,8 +54,11 @@ public class Main {
                                     break;
                                 }
                                 case 2: {
-                                    bk.bookLesson(cus_id);
+                                    ed.editProfile(cus_id);
                                     break;
+                                }
+                                case 3:{
+                                    bk.bookLesson(cus_id);
                                 }
                                 default: {
                                     System.out.println("无效的选项，请重新选择。");
