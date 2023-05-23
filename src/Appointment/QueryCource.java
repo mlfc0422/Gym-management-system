@@ -68,7 +68,7 @@ public class QueryCource {
             }
             case 4: {
                 sc.nextLine(); // Consume the newline character
-                System.out.println("请输入要查询的星期几（周一）:");
+                System.out.println("请输入要查询的星期几（例如:周一）:");
                 String Week = sc.nextLine();
 
                 System.out.println("请输入要查询的时间段:\n1.8:00-10:00\n2.10:00-12:00\n3.2:30-4:30\n4.4:30-6:30\n5.7:30-9:30");
