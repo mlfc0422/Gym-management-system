@@ -13,6 +13,7 @@ public class Main {
         registration rt = new registration();
         BookLesson bk = new BookLesson();
         EdPersonData ed = new EdPersonData();
+        QueryCource qc = new QueryCource();
         String cus_id = "";
 
         System.out.println("欢迎使用健身房管理系统");
@@ -46,7 +47,7 @@ public class Main {
                     if (loginSuccess) {
                         cus_id = lg.getCustomerId();
                         while (true) {
-                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程");
+                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程");
                             int function = sc.nextInt();
                             switch (function) {
                                 case 1: {
@@ -59,6 +60,11 @@ public class Main {
                                 }
                                 case 3:{
                                     bk.bookLesson(cus_id);
+                                    break;
+                                }
+                                case 4:{
+                                    qc.querycource();
+                                    break;
                                 }
                                 default: {
                                     System.out.println("无效的选项，请重新选择。");
@@ -74,8 +80,9 @@ public class Main {
                     while(true) {
                         boolean loginSuccess = lg.logOn1();
                         if (loginSuccess) {
+                            cus_id = lg.getCustomerId();
                             while (true) {
-                                System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.其他功能");
+                                System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程");
                                 int function = sc.nextInt();
                                 switch (function) {
                                     case 1: {
@@ -83,7 +90,15 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-
+                                        ed.editProfile(cus_id);
+                                        break;
+                                    }
+                                    case 3:{
+                                        bk.bookLesson(cus_id);
+                                        break;
+                                    }
+                                    case 4:{
+                                        qc.querycource();
                                         break;
                                     }
                                     default: {
