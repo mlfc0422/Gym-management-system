@@ -4,8 +4,11 @@ import java.sql.*;
 
 public class DatabaseConnector {
     private Connection conn;
+    private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
+    private final String username = "root";
+    private final String password = "liyu422321";
 
-    public DatabaseConnector(String url, String username, String password) throws SQLException {
+    public DatabaseConnector() throws SQLException {
         conn = DriverManager.getConnection(url, username, password);
     }
 
@@ -13,29 +16,4 @@ public class DatabaseConnector {
         return conn;
     }
 
-    public void closeConnection() throws SQLException {
-        if (conn != null) {
-            conn.close();
-        }
-    }
-
-    public ResultSet performQuery(String query) throws SQLException {
-        // 执行数据库查询操作
-        // 使用 conn 进行查询操作
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        statement = conn.prepareStatement(query);
-        resultSet = statement.executeQuery();
-        return resultSet;
-        // 处理查询结果
-    }
-
-    public void performUpdate(String update) throws SQLException {
-        // 执行数据库更新操作
-        // 使用 conn 进行更新操作
-        PreparedStatement statement = null;
-        statement = conn.prepareStatement(update);
-        statement.executeUpdate();
-    }
 }

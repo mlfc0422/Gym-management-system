@@ -6,12 +6,9 @@ import java.util.Random;
 import database.DatabaseConnector;
 
 public class registration {
-    private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
-    private final String username = "root";
-    private final String password = "liyu422321";
 
     public void register() throws SQLException {
-        DatabaseConnector dc = new DatabaseConnector(url, username, password);
+        DatabaseConnector dc = new DatabaseConnector();
         Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
         ResultSet resultSet = null;

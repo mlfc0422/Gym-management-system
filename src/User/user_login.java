@@ -9,14 +9,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class user_login {
-    private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
-    private final String username = "root";
-    private final String password = "liyu422321";
     String cus_id = "";
 
     public boolean logOn1() throws SQLException {
 
-        DatabaseConnector dc = new DatabaseConnector(url, username, password);
+        DatabaseConnector dc = new DatabaseConnector();
         Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
         boolean loginSuccess = false;

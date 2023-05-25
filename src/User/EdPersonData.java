@@ -5,9 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class EdPersonData {
-    private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
-    private final String username = "root";
-    private final String password = "liyu422321";
+
     public void editProfile(String cus_id) throws SQLException {
         Scanner sc = new Scanner(System.in);
 
@@ -27,7 +25,7 @@ public class EdPersonData {
         String newAge = sc.nextLine();
 
         // 连接数据库并更新个人资料
-        DatabaseConnector dc = new DatabaseConnector(url, username, password);
+        DatabaseConnector dc = new DatabaseConnector();
         Connection connection = dc.getConnection();
         String updateQuery = "UPDATE customer SET cus_name = ?, cus_hgt = ?, cus_wgt = ?, cus_tel = ?, cus_age = ? WHERE cus_id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {

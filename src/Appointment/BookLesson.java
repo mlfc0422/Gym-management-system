@@ -8,12 +8,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BookLesson {
-    private final String url = "jdbc:mysql://localhost:3306/gym?characterEncoding=utf-8&serverTimezone=UTC";
-    private final String username = "root";
-    private final String password = "liyu422321";
 
     public void bookLesson(String cus_id) throws SQLException {
-        DatabaseConnector dc = new DatabaseConnector(url, username, password);
+        DatabaseConnector dc = new DatabaseConnector();
         Scanner sc = new Scanner(System.in);
 
         Connection connection = dc.getConnection();
