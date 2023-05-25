@@ -3,7 +3,7 @@ package User;
 import java.sql.*;
 import java.util.Scanner;
 import java.util.Random;
-import database.DatabaseConnector;
+import Common.DatabaseConnector;
 
 public class registration {
 

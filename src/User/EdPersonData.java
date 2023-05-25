@@ -1,6 +1,6 @@
 package User;
 import java.sql.*;
-import database.DatabaseConnector;
+import Common.DatabaseConnector;
 import java.sql.SQLException;
 import java.util.Scanner;
 

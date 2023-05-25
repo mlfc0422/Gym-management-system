@@ -1,12 +1,13 @@
 package Appointment;
 
-import database.DatabaseConnector;
+import Common.*;
 import java.util.Scanner;
 import java.sql.*;
 
 public class QueryCource {
     public void querycource() throws SQLException {
         DatabaseConnector dc = new DatabaseConnector();
+        Printdatabase pt = new Printdatabase();
         Connection connection = dc.getConnection();
         ResultSet resultSet = null;
         Scanner sc = new Scanner(System.in);
@@ -20,7 +21,7 @@ public class QueryCource {
                 String query = "SELECT * FROM public_timetable";
                 Statement stmt = connection.createStatement();
                 resultSet = stmt.executeQuery(query);
-                printQueryResult(resultSet);
+                pt.printQueryResult(resultSet);
                 break;
             }
             case 2: {
@@ -40,7 +41,7 @@ public class QueryCource {
                 PreparedStatement pstmt = connection.prepareStatement(tc_query);
                 pstmt.setString(1, teacher_name);
                 resultSet = pstmt.executeQuery();
-                printQueryResult(resultSet);
+                pt.printQueryResult(resultSet);
                 break;
             }
             case 3: {
@@ -60,7 +61,7 @@ public class QueryCource {
                 PreparedStatement pstmt = connection.prepareStatement(tc_query);
                 pstmt.setString(1, course);
                 resultSet = pstmt.executeQuery();
-                printQueryResult(resultSet);
+                pt.printQueryResult(resultSet);
                 break;
             }
             case 4: {
@@ -76,7 +77,7 @@ public class QueryCource {
                 pstmt.setString(1, Week);
                 pstmt.setInt(2, time_id);
                 resultSet = pstmt.executeQuery();
-                printQueryResult(resultSet);
+                pt.printQueryResult(resultSet);
                 break;
             }
             default:
@@ -91,23 +92,4 @@ public class QueryCource {
         connection.close();
     }
 
-    // 打印查询结果的方法
-    private void printQueryResult(ResultSet resultSet) throws SQLException {
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        int columnCount = metaData.getColumnCount();
-
-        // 打印表头
-        for (int i = 1; i <= columnCount; i++) {
-            System.out.printf("%-15s",metaData.getColumnName(i));
-        }
-        System.out.println();
-
-        // 打印每行数据
-        while (resultSet.next()) {
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.printf("%-15s",resultSet.getString(i));
-            }
-            System.out.println();
-        }
-    }
 }

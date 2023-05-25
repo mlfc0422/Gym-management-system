@@ -14,6 +14,7 @@ public class Main {
         BookLesson bk = new BookLesson();
         EdPersonData ed = new EdPersonData();
         QueryCource qc = new QueryCource();
+        QueryPersonalCource qpc = new QueryPersonalCource();
         String cus_id = "";
 
         System.out.println("欢迎使用健身房管理系统");
@@ -47,7 +48,7 @@ public class Main {
                     if (loginSuccess) {
                         cus_id = lg.getCustomerId();
                         while (true) {
-                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程");
+                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程\n5.查询个人课表");
                             int function = sc.nextInt();
                             switch (function) {
                                 case 1: {
@@ -66,6 +67,10 @@ public class Main {
                                     qc.querycource();
                                     break;
                                 }
+                                case 5:{
+                                    qpc.querypersonalcource(cus_id);
+                                    break;
+                                }
                                 default: {
                                     System.out.println("无效的选项，请重新选择。");
                                     break;
@@ -82,7 +87,7 @@ public class Main {
                         if (loginSuccess) {
                             cus_id = lg.getCustomerId();
                             while (true) {
-                                System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程");
+                                System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程\n5.查询个人课表");
                                 int function = sc.nextInt();
                                 switch (function) {
                                     case 1: {
@@ -99,6 +104,10 @@ public class Main {
                                     }
                                     case 4:{
                                         qc.querycource();
+                                        break;
+                                    }
+                                    case 5:{
+                                        qpc.querypersonalcource(cus_id);
                                         break;
                                     }
                                     default: {

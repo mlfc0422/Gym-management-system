@@ -1,6 +1,6 @@
 package User;
 import java.sql.*;
-import database.DatabaseConnector;
+import Common.DatabaseConnector;
 
 public class Personal_Data {
 

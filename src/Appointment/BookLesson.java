@@ -1,6 +1,6 @@
 package Appointment;
 
-import database.DatabaseConnector;
+import Common.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

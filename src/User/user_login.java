@@ -1,6 +1,6 @@
 package User;
 
-import database.DatabaseConnector;
+import Common.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
