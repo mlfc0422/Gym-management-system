@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class emp_login {
+public class root_login {
 
-    String emp_id = "";
+    String root_id = "";
 
     public boolean logOn2() throws SQLException {
 
@@ -20,22 +20,21 @@ public class emp_login {
 
         try {
             System.out.println("请输入账号：");
-            emp_id = sc.nextLine();
+            root_id = sc.nextLine();
 
             System.out.println("请输入密码：");
-            String emp_pswd = sc.nextLine();
+            String root_pswd = sc.nextLine();
 
-            String query = "SELECT * FROM employee WHERE emp_id = ? AND emp_pswd = ?";
+            String query = "SELECT * FROM root WHERE root_id = ? AND root_pswd = ?";
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                pstmt.setString(1, emp_id);
-                pstmt.setString(2, emp_pswd);
+                pstmt.setString(1, root_id);
+                pstmt.setString(2, root_pswd);
                 try (ResultSet resultSet = pstmt.executeQuery()) {
                     if (resultSet.next()) {
                         System.out.println("登录成功！");
                         loginSuccess = true;
                     } else {
                         System.out.println("用户名或密码错误，登录失败！");
-                        emp_id = ""; // 清空 cus_id
                     }
                 }
             } catch (SQLException e) {
@@ -54,5 +53,8 @@ public class emp_login {
             }
         }
         return loginSuccess;
+    }
+    public String getRoot_Id() {
+        return root_id;
     }
 }

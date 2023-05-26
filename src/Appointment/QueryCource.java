@@ -9,7 +9,6 @@ public class QueryCource {
         DatabaseConnector dc = new DatabaseConnector();
         Printdatabase pt = new Printdatabase();
         Connection connection = dc.getConnection();
-        ResultSet resultSet = null;
         Scanner sc = new Scanner(System.in);
         int choice1, choice2, choice3, choice4;
 
@@ -19,9 +18,10 @@ public class QueryCource {
         switch (choice1) {
             case 1: {
                 String query = "SELECT * FROM public_timetable";
-                Statement stmt = connection.createStatement();
-                resultSet = stmt.executeQuery(query);
-                pt.printQueryResult(resultSet);
+                try (Statement stmt = connection.createStatement();
+                     ResultSet resultSet = stmt.executeQuery(query)) {
+                    pt.printQueryResult(resultSet);
+                }
                 break;
             }
             case 2: {
@@ -38,10 +38,12 @@ public class QueryCource {
                     teacher_name = "赵六";
                 }
                 String tc_query = "SELECT * FROM public_timetable WHERE teacher_name = ?";
-                PreparedStatement pstmt = connection.prepareStatement(tc_query);
-                pstmt.setString(1, teacher_name);
-                resultSet = pstmt.executeQuery();
-                pt.printQueryResult(resultSet);
+                try (PreparedStatement pstmt = connection.prepareStatement(tc_query)) {
+                    pstmt.setString(1, teacher_name);
+                    try (ResultSet resultSet = pstmt.executeQuery()) {
+                        pt.printQueryResult(resultSet);
+                    }
+                }
                 break;
             }
             case 3: {
@@ -58,10 +60,12 @@ public class QueryCource {
                     course = "健身操课程";
                 }
                 String tc_query = "SELECT * FROM public_timetable WHERE course = ?";
-                PreparedStatement pstmt = connection.prepareStatement(tc_query);
-                pstmt.setString(1, course);
-                resultSet = pstmt.executeQuery();
-                pt.printQueryResult(resultSet);
+                try (PreparedStatement pstmt = connection.prepareStatement(tc_query)) {
+                    pstmt.setString(1, course);
+                    try (ResultSet resultSet = pstmt.executeQuery()) {
+                        pt.printQueryResult(resultSet);
+                    }
+                }
                 break;
             }
             case 4: {
@@ -73,23 +77,19 @@ public class QueryCource {
                 int time_id = sc.nextInt();
 
                 String query = "SELECT * FROM public_timetable WHERE week = ? AND time_id = ?";
-                PreparedStatement pstmt = connection.prepareStatement(query);
-                pstmt.setString(1, Week);
-                pstmt.setInt(2, time_id);
-                resultSet = pstmt.executeQuery();
-                pt.printQueryResult(resultSet);
+                try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                    pstmt.setString(1, Week);
+                    pstmt.setInt(2, time_id);
+                    try (ResultSet resultSet = pstmt.executeQuery()) {
+                        pt.printQueryResult(resultSet);
+                    }
+                }
                 break;
             }
             default:
                 System.out.println("无效的选择，请重新输入。");
                 break;
         }
-
-        // 关闭资源
-        if (resultSet != null) {
-            resultSet.close();
-        }
         connection.close();
     }
-
 }
