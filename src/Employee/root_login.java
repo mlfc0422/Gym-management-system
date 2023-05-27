@@ -35,6 +35,7 @@ public class root_login {
                         loginSuccess = true;
                     } else {
                         System.out.println("用户名或密码错误，登录失败！");
+                        root_id = "";
                     }
                 }
             } catch (SQLException e) {
@@ -54,7 +55,7 @@ public class root_login {
         }
         return loginSuccess;
     }
-    public String getRoot_Id() {
+    public String getrootId() {
         return root_id;
     }
 }

@@ -14,32 +14,40 @@ public class EmpData {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("请输入员工id：");
-        String emp_id = sc.nextLine();
+        int emp_id = sc.nextInt();
+
+        sc.nextLine();
 
         System.out.println("请输入员工姓名：");
         String emp_name = sc.nextLine();
 
-        System.out.println("请输入员工年龄：");
-        String emp_age = sc.nextLine();
-
         System.out.println("请输入员工职位：");
         String emp_post = sc.nextLine();
 
-        System.out.println("请输入员工薪资：");
-        String emp_salary = sc.nextLine();
+        System.out.println("请输入员工联系电话：");
+        String phone = sc.nextLine();
 
-        String insertSql = "INSERT INTO employee (emp_id, emp_name, emp_age, emp_post, emp_salary) VALUES (?, ?, ?, ?, ?)";
+        System.out.println("请输入员工年龄：");
+        int emp_age = sc.nextInt();
+
+        System.out.println("请输入员工薪资：");
+        Double salary = sc.nextDouble();
+
+        String insertSql = "INSERT INTO emp_data (emp_id, emp_name, post, phone, age, salary) VALUES (?, ?, ?, ?, ?, ?)";
         try(PreparedStatement pstmt = connection.prepareStatement(insertSql)) {
-            pstmt.setString(1, emp_id);
+            pstmt.setInt(1, emp_id);
             pstmt.setString(2, emp_name);
-            pstmt.setString(3, emp_age);
-            pstmt.setString(4, emp_post);
-            pstmt.setString(5, emp_salary);
+            pstmt.setString(3, emp_post);
+            pstmt.setString(4, phone);
+            pstmt.setInt(5, emp_age);
+            pstmt.setDouble(6,salary);
             pstmt.executeUpdate();
 
             System.out.println("员工信息插入成功！");
+        }catch (Exception e)
+        {
+            System.out.println("录入失败"+e.getMessage());
         }
-
         // 关闭资源
         connection.close();
     }
