@@ -1,10 +1,13 @@
 import Employee.EmpData;
+import Employee.EmpDataQuery;
+import Facility.EquRegistration;
 import User.*;
 import Employee.root_login;
 import java.sql.SQLException;
 import java.util.Scanner;
 import Appointment.*;
 import Finance.Spend;
+import Facility.EquRegistration;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -19,6 +22,10 @@ public class Main {
         queryPersonalCource qpc = new queryPersonalCource();
         EmpData ed = new EmpData();
         Spend sp = new Spend();
+        EquRegistration er = new EquRegistration();
+        EmpDataQuery edq = new EmpDataQuery();
+        PersonalCourseManagement pcm = new PersonalCourseManagement();
+        PublicCourseManagement pcm1 = new PublicCourseManagement();
 
         String cus_id;
         String root_id;
@@ -122,8 +129,7 @@ public class Main {
                 root_id=lg1.getrootId();
                 while(true)
                 {
-                    System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单");
-
+                    System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n6.公共课程管理");
                     int function1 = sc.nextInt();
                     switch (function1)
                     {
@@ -135,6 +141,26 @@ public class Main {
                         case 2:
                         {
                             sp.spend(root_id);
+                            break;
+                        }
+                        case 3:
+                        {
+                            er.equregistration(root_id);
+                            break;
+                        }
+                        case 4:
+                        {
+                            edq.empdataquery();
+                            break;
+                        }
+                        case 5:
+                        {
+                            pcm.personalcm();
+                            break;
+                        }
+                        case 6:
+                        {
+                            pcm1.publiccoursemanagement();
                             break;
                         }
                         default:
