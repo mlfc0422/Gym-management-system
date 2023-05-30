@@ -26,6 +26,7 @@ public class Main {
         EmpDataQuery edq = new EmpDataQuery();
         PersonalCourseManagement pcm = new PersonalCourseManagement();
         PublicCourseManagement pcm1 = new PublicCourseManagement();
+        FeedBack fd = new FeedBack();
 
         String cus_id;
         String root_id;
@@ -71,6 +72,11 @@ public class Main {
                                     qpc.querypersonalcource(cus_id);
                                     break;
                                 }
+                                case 6:
+                                {
+                                    fd.feedback(cus_id);
+                                    break;
+                                }
                                 default: {
                                     System.out.println("无效的选项，请重新选择。");
                                     break;
@@ -108,6 +114,11 @@ public class Main {
                                     }
                                     case 5:{
                                         qpc.querypersonalcource(cus_id);
+                                        break;
+                                    }
+                                    case 6:
+                                    {
+                                        fd.feedback(cus_id);
                                         break;
                                     }
                                     default: {

@@ -13,13 +13,15 @@ public class queryPersonalCource {
 
         try (DatabaseConnector dc = new DatabaseConnector();
              Connection connection = dc.getConnection();
-             PreparedStatement ppst = connection.prepareStatement(query_sql);
-             ResultSet re = ppst.executeQuery()) {
+             PreparedStatement ppst = connection.prepareStatement(query_sql)) {
 
             ppst.setString(1, cus_id);
-            pt.printQueryResult(re);
+            try (ResultSet re = ppst.executeQuery()) {
+                pt.printQueryResult(re);
+            }
         }
     }
+
 
 
 }
