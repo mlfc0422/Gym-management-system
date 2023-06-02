@@ -55,6 +55,10 @@ public class BookLesson {
                         System.out.println("您预约的课程已满！");
                     }
                 }
+                else
+                {
+                    System.out.println("预约课程不存在");
+                }
             }
         }
         connection.close();

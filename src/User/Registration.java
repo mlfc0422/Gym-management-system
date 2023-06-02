@@ -9,25 +9,38 @@ public class Registration {
 
     public void register() throws SQLException {
         DatabaseConnector dc = new DatabaseConnector();
-        Connection connection = dc.getConnection();
         Scanner sc = new Scanner(System.in);
-        ResultSet resultSet = null;
-        int b = 0;
+        try (Connection connection = dc.getConnection()) {
 
-        try {
+            ResultSet resultSet = null;
+            int b = 0;
+
             while (true) {
-                System.out.print("请输入账号: ");
-                String cus_id = sc.nextLine();
-                System.out.print("请输入密码: ");
-                String cus_pswd = sc.nextLine();
-                System.out.print("请再次输入密码: ");
-                String cus_pswd2 = sc.nextLine();
+                String cus_id = null;
+                String cus_pswd = null;
+                String cus_pswd2 = null;
+
+                try {
+                    System.out.print("请输入账号（最多九位数字）: ");
+                    cus_id = sc.nextLine();
+                    System.out.print("请输入密码（最多十二位）: ");
+                    cus_pswd = sc.nextLine();
+                    System.out.print("请再次输入密码（最多十二位）: ");
+                    cus_pswd2 = sc.nextLine();
+
+                    if (cus_id.length() > 9 || cus_pswd.length() > 9 || cus_pswd2.length() > 9) {
+                        throw new IllegalArgumentException("账号和密码长度不符合规范，请重新输入。");
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("输入错误：" + e.getMessage());
+                    continue;
+                }
 
                 Random r = new Random();
                 int i = r.nextInt(9000) + 1000;
                 System.out.println("请输入以下验证码: " + i);
                 int i2 = sc.nextInt();
-                sc.nextLine(); // 消耗换行符
+                sc.nextLine(); // Consume the newline character
 
                 String query = "SELECT * FROM register WHERE cus_id = ?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
@@ -71,28 +84,11 @@ public class Registration {
                     continue;
                 }
             }
-        } catch (Exception e) {
-            System.out.println("注册失败，请重新尝试！错误信息：" + e.getMessage());
-        } finally {
-            // 关闭 ResultSet
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // 关闭 Connection
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        } catch (SQLException e) {
+            System.err.println("注册失败：" + e.getMessage());
         }
     }
+
 
 }
 

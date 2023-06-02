@@ -1,38 +1,13 @@
-import Employee.EmpData;
-import Employee.EmpDataQuery;
-import Facility.EquRegistration;
-import Facility.FeedBack;
-import Facility.ManEqu;
-import Facility.ManFeedBack;
-import Finance.QuerySpend;
-import User.*;
-import Employee.RootLogin;
+
+import Common.Obj.obj;
+
 import java.sql.SQLException;
 import java.util.Scanner;
-import Appointment.*;
-import Finance.Spend;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner sc = new Scanner(System.in);
-        Personal_Data pd = new Personal_Data();
-        UserLogin lg = new UserLogin();
-        RootLogin lg1 = new RootLogin();
-        Registration rt = new Registration();
-        BookLesson bk = new BookLesson();
-        EdPersonData epd = new EdPersonData();
-        QueryCource qc = new QueryCource();
-        QueryPersonalCource qpc = new QueryPersonalCource();
-        EmpData ed = new EmpData();
-        Spend sp = new Spend();
-        EquRegistration er = new EquRegistration();
-        EmpDataQuery edq = new EmpDataQuery();
-        PersonalCourseManagement pcm = new PersonalCourseManagement();
-        PublicCourseManagement pcm1 = new PublicCourseManagement();
-        FeedBack fd = new FeedBack();
-        ManFeedBack mfb = new ManFeedBack();
-        QuerySpend qs = new QuerySpend();
-        ManEqu ma = new ManEqu();
+        obj.initializeObjects();
 
         String cus_id;
         String root_id;
@@ -41,46 +16,46 @@ public class Main {
         System.out.println("请选择你的身份");
         System.out.println("1.会员\n2.管理员");
 
-        int identity;
-        boolean isValidInput = false;
-        identity = sc.nextInt();
+        int identity = obj.ip.getInput(sc, "请选择你的身份：", 1, 2);
 
         if (identity == 1) {
             System.out.println("是否已经有账号");
             System.out.println("1.已经有账户\n2.还没有账户");
-            int Account = sc.nextInt();
-            while(true) {
-                if (Account == 1) {
-                    boolean loginSuccess = lg.logOn1();
+
+            int accountOption = obj.ip.getInput(sc, "请选择账号选项：", 1, 2);
+
+            if (accountOption == 1) {
+                while (true) {
+                    boolean loginSuccess = obj.lg.logOn1();
                     if (loginSuccess) {
-                        cus_id = lg.getCustomerId();
+                        cus_id = obj.lg.getCustomerId();
                         while (true) {
                             System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询公共课程\n5.查询个人课表\n6.意见反馈");
-                            int function = sc.nextInt();
+                            int function = obj.ip.getInput(sc, "请输入功能编号：", 1, 6);
+
                             switch (function) {
                                 case 1: {
-                                    pd.personal_data(cus_id);
+                                    obj.pd.personal_data(cus_id);
                                     break;
                                 }
                                 case 2: {
-                                    epd.editProfile(cus_id);
+                                    obj.epd.editProfile(cus_id);
                                     break;
                                 }
-                                case 3:{
-                                    bk.bookLesson(cus_id);
+                                case 3: {
+                                    obj.bk.bookLesson(cus_id);
                                     break;
                                 }
-                                case 4:{
-                                    qc.querycource();
+                                case 4: {
+                                    obj.qc.querycource();
                                     break;
                                 }
-                                case 5:{
-                                    qpc.querypersonalcource(cus_id);
+                                case 5: {
+                                    obj.qpc.querypersonalcource(cus_id);
                                     break;
                                 }
-                                case 6:
-                                {
-                                    fd.feedback(cus_id);
+                                case 6: {
+                                    obj.fd.feedback(cus_id);
                                     break;
                                 }
                                 default: {
@@ -90,121 +65,113 @@ public class Main {
                             }
                         }
                     } else {
-                        System.out.println("请重新尝试！");
+                        System.out.println("登录失败，请重新尝试！");
                     }
-                } else if (Account == 2) {
-                    rt.register();
-                    while(true) {
-                        boolean loginSuccess = lg.logOn1();
-                        if (loginSuccess) {
-                            cus_id = lg.getCustomerId();
-                            while (true) {
-                                System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程\n5.查询个人课表\n6.意见反馈");
-                                int function = sc.nextInt();
-                                switch (function) {
-                                    case 1: {
-                                        pd.personal_data(cus_id);
-                                        break;
-                                    }
-                                    case 2: {
-                                        epd.editProfile(cus_id);
-                                        break;
-                                    }
-                                    case 3:{
-                                        bk.bookLesson(cus_id);
-                                        break;
-                                    }
-                                    case 4:{
-                                        qc.querycource();
-                                        break;
-                                    }
-                                    case 5:{
-                                        qpc.querypersonalcource(cus_id);
-                                        break;
-                                    }
-                                    case 6:
-                                    {
-                                        fd.feedback(cus_id);
-                                        break;
-                                    }
-                                    default: {
-                                        System.out.println("无效的选项，请重新选择。");
-                                        break;
-                                    }
+                }
+            } else if (accountOption == 2) {
+                obj.rt.register();
+                while (true) {
+                    boolean loginSuccess = obj.lg.logOn1();
+                    if (loginSuccess) {
+                        cus_id = obj.lg.getCustomerId();
+                        while (true) {
+                            System.out.println("请选择要使用的功能：\n1.查询个人信息\n2.编辑个人资料\n3.预约课程\n4.查询课程\n5.查询个人课表\n6.意见反馈");
+                            int function = obj.ip.getInput(sc, "请输入功能编号：", 1, 6);
+
+                            switch (function) {
+                                case 1: {
+                                    obj.pd.personal_data(cus_id);
+                                    break;
+                                }
+                                case 2: {
+                                    obj.epd.editProfile(cus_id);
+                                    break;
+                                }
+                                case 3: {
+                                    obj.bk.bookLesson(cus_id);
+                                    break;
+                                }
+                                case 4: {
+                                    obj.qc.querycource();
+                                    break;
+                                }
+                                case 5: {
+                                    obj.qpc.querypersonalcource(cus_id);
+                                    break;
+                                }
+                                case 6: {
+                                    obj.fd.feedback(cus_id);
+                                    break;
+                                }
+                                default: {
+                                    System.out.println("无效的选项，请重新选择。");
+                                    break;
                                 }
                             }
-                        } else {
-                            System.out.println("请重新尝试！");
                         }
+                    } else {
+                        System.out.println("登录失败，请重新尝试！");
                     }
                 }
             }
         } else if (identity == 2) {
-            boolean loginSuccess = lg1.logOn2();
-            if(loginSuccess)
-            {
-                root_id=lg1.getrootId();
-                while(true)
-                {
-                    System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n" +
-                            "6.公共课程管理\n7.查看反馈\n8.查询账单\n9.器材查询");
-                    int function1 = sc.nextInt();
-                    switch (function1)
-                    {
-                        case 1:
-                        {
-                            ed.emp_data();
-                            break;
-                        }
-                        case 2:
-                        {
-                            sp.spend(root_id);
-                            break;
-                        }
-                        case 3:
-                        {
-                            er.equregistration(root_id);
-                            break;
-                        }
-                        case 4:
-                        {
-                            edq.empdataquery();
-                            break;
-                        }
-                        case 5:
-                        {
-                            pcm.personalcm();
-                            break;
-                        }
-                        case 6:
-                        {
-                            pcm1.publiccoursemanagement();
-                            break;
-                        }
-                        case 7:
-                        {
-                            mfb.manfeedback();
-                            break;
-                        }
-                        case 8:
-                        {
-                            qs.queryspend();
-                            break;
-                        }
-                        case 9:
-                        {
-                            ma.manequ();
-                            break;
+            while (true) {
+                boolean loginSuccess = obj.lg1.logOn2();
+                if (loginSuccess) {
+                    root_id = obj.lg1.getrootId();
+                    while (true) {
+                        System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n" +
+                                "6.公共课程管理\n7.查看反馈\n8.查询账单\n9.器材查询");
+                        int function1 = obj.ip.getInput(sc, "请输入功能编号：", 1, 9);
 
-                        }
-                        default:
-                        {
-                            System.out.println("无效的选择，请重新输入");
-                            break;
+                        switch (function1) {
+                            case 1: {
+                                obj.ed.emp_data();
+                                break;
+                            }
+                            case 2: {
+                                obj.sp.spend(root_id);
+                                break;
+                            }
+                            case 3: {
+                                obj.er.equregistration(root_id);
+                                break;
+                            }
+                            case 4: {
+                                obj.edq.empdataquery();
+                                break;
+                            }
+                            case 5: {
+                                obj.pcm.personalcm();
+                                break;
+                            }
+                            case 6: {
+                                obj.pcm1.publiccoursemanagement();
+                                break;
+                            }
+                            case 7: {
+                                obj.mfb.manfeedback();
+                                break;
+                            }
+                            case 8: {
+                                obj.qs.queryspend();
+                                break;
+                            }
+                            case 9: {
+                                obj.ma.manequ();
+                                break;
+                            }
+                            default: {
+                                System.out.println("无效的选择，请重新输入");
+                                break;
+                            }
                         }
                     }
+                } else {
+                    System.out.println("登录失败，请重新尝试！");
                 }
             }
         }
     }
+
 }
