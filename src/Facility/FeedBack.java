@@ -1,4 +1,4 @@
-package User;
+package Facility;
 
 import Common.DatabaseConnector;
 
@@ -25,5 +25,6 @@ public class FeedBack {
         {
             System.out.println("反馈失败，错误原因:" + e.getMessage());
         }
+        connection.close();
     }
 }

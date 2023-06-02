@@ -1,17 +1,17 @@
-package Employee;
+package User;
 
 import Common.DatabaseConnector;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class root_login {
+public class UserLogin {
+    String cus_id = "";
 
-    String root_id = "";
-
-    public boolean logOn2() throws SQLException {
+    public boolean logOn1() throws SQLException {
 
         DatabaseConnector dc = new DatabaseConnector();
         Connection connection = dc.getConnection();
@@ -20,22 +20,22 @@ public class root_login {
 
         try {
             System.out.println("请输入账号：");
-            root_id = sc.nextLine();
+            cus_id = sc.nextLine();
 
             System.out.println("请输入密码：");
-            String root_pswd = sc.nextLine();
+            String cus_pswd = sc.nextLine();
 
-            String query = "SELECT * FROM root WHERE root_id = ? AND root_pswd = ?";
+            String query = "SELECT * FROM register WHERE cus_id = ? AND cus_pswd = ?";
             try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                pstmt.setString(1, root_id);
-                pstmt.setString(2, root_pswd);
+                pstmt.setString(1, cus_id);
+                pstmt.setString(2, cus_pswd);
                 try (ResultSet resultSet = pstmt.executeQuery()) {
                     if (resultSet.next()) {
                         System.out.println("登录成功！");
                         loginSuccess = true;
                     } else {
                         System.out.println("用户名或密码错误，登录失败！");
-                        root_id = "";
+                        cus_id = ""; // 清空 cus_id
                     }
                 }
             } catch (SQLException e) {
@@ -55,7 +55,9 @@ public class root_login {
         }
         return loginSuccess;
     }
-    public String getrootId() {
-        return root_id;
+    public String getCustomerId() {
+        return cus_id;
     }
+
 }
+

@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class queryPersonalCource {
+public class QueryPersonalCource {
     public void querypersonalcource(String cus_id) throws SQLException {
         Printdatabase pt = new Printdatabase();
         String query_sql = "SELECT * FROM personal_timetable WHERE cus_id = ?";

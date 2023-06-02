@@ -69,23 +69,31 @@ public class QueryCource {
                 break;
             }
             case 4: {
-                sc.nextLine(); // Consume the newline character
-                System.out.println("请输入要查询的星期几（例如:周一）:");
-                String Week = sc.nextLine();
+                sc.nextLine(); // 消耗换行符
+                System.out.println("请输入要查询的星期几（例如：周一）:");
+                String week = sc.nextLine();
 
-                System.out.println("请输入要查询的时间段:\n1.8:00-10:00\n2.10:00-12:00\n3.2:30-4:30\n4.4:30-6:30\n5.7:30-9:30");
+                System.out.println("请输入要查询的时间段:\n1. 8:00-10:00\n2. 10:00-12:00\n3. 2:30-4:30\n4. 4:30-6:30\n5. 7:30-9:30");
                 int time_id = sc.nextInt();
 
                 String query = "SELECT * FROM public_timetable WHERE week = ? AND time_id = ?";
                 try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                    pstmt.setString(1, Week);
+                    pstmt.setString(1, week);
                     pstmt.setInt(2, time_id);
                     try (ResultSet resultSet = pstmt.executeQuery()) {
-                        pt.printQueryResult(resultSet);
+                        if (!resultSet.next()) {
+                            System.out.println("当前时间无课程");
+                        } else {
+                            resultSet.beforeFirst(); // 将游标重新定位到第一行之前
+                            pt.printQueryResult(resultSet);
+                        }
                     }
+                } catch (SQLException e) {
+                    System.err.println("查询失败: " + e.getMessage());
                 }
                 break;
             }
+
             default:
                 System.out.println("无效的选择，请重新输入。");
                 break;

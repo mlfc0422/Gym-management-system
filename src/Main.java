@@ -1,25 +1,28 @@
 import Employee.EmpData;
 import Employee.EmpDataQuery;
 import Facility.EquRegistration;
+import Facility.FeedBack;
+import Facility.ManEqu;
+import Facility.ManFeedBack;
+import Finance.QuerySpend;
 import User.*;
-import Employee.root_login;
+import Employee.RootLogin;
 import java.sql.SQLException;
 import java.util.Scanner;
 import Appointment.*;
 import Finance.Spend;
-import Facility.EquRegistration;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner sc = new Scanner(System.in);
         Personal_Data pd = new Personal_Data();
-        user_login lg = new user_login();
-        root_login lg1 = new root_login();
-        registration rt = new registration();
+        UserLogin lg = new UserLogin();
+        RootLogin lg1 = new RootLogin();
+        Registration rt = new Registration();
         BookLesson bk = new BookLesson();
         EdPersonData epd = new EdPersonData();
         QueryCource qc = new QueryCource();
-        queryPersonalCource qpc = new queryPersonalCource();
+        QueryPersonalCource qpc = new QueryPersonalCource();
         EmpData ed = new EmpData();
         Spend sp = new Spend();
         EquRegistration er = new EquRegistration();
@@ -27,6 +30,9 @@ public class Main {
         PersonalCourseManagement pcm = new PersonalCourseManagement();
         PublicCourseManagement pcm1 = new PublicCourseManagement();
         FeedBack fd = new FeedBack();
+        ManFeedBack mfb = new ManFeedBack();
+        QuerySpend qs = new QuerySpend();
+        ManEqu ma = new ManEqu();
 
         String cus_id;
         String root_id;
@@ -140,7 +146,8 @@ public class Main {
                 root_id=lg1.getrootId();
                 while(true)
                 {
-                    System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n6.公共课程管理");
+                    System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n" +
+                            "6.公共课程管理\n7.查看反馈\n8.查询账单\n9.器材查询");
                     int function1 = sc.nextInt();
                     switch (function1)
                     {
@@ -173,6 +180,22 @@ public class Main {
                         {
                             pcm1.publiccoursemanagement();
                             break;
+                        }
+                        case 7:
+                        {
+                            mfb.manfeedback();
+                            break;
+                        }
+                        case 8:
+                        {
+                            qs.queryspend();
+                            break;
+                        }
+                        case 9:
+                        {
+                            ma.manequ();
+                            break;
+
                         }
                         default:
                         {

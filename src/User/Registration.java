@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.Random;
 import Common.DatabaseConnector;
 
-public class registration {
+public class Registration {
 
     public void register() throws SQLException {
         DatabaseConnector dc = new DatabaseConnector();
