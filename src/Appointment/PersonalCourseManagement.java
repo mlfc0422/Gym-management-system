@@ -3,7 +3,6 @@ package Appointment;
 import Common.DatabaseConnector;
 import java.sql.*;
 import java.util.Scanner;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
@@ -11,6 +10,13 @@ public class PersonalCourseManagement {
     public void personalcm() throws SQLException {
         DatabaseConnector dc = new DatabaseConnector();
         Scanner sc = new Scanner(System.in);
+
+        System.out.print("请选择操作：\n1. 增加课程\n2. 删除课程\n");
+        int choice = sc.nextInt();
+        sc.nextLine(); // 消耗换行符
+
+        if (choice == 1) {
+            // 增加课程
             System.out.print("请输入课程id：");
             int courseId = sc.nextInt();
             sc.nextLine(); // 消耗换行符
@@ -62,6 +68,28 @@ public class PersonalCourseManagement {
             } catch (NumberFormatException e) {
                 System.out.println("Number Format Exception: " + e.getMessage());
             }
+        } else if (choice == 2) {
+            // 删除课程
+            System.out.print("请输入要删除的课程id：");
+            int courseId = sc.nextInt();
+            sc.nextLine(); // 消耗换行符
 
+            String deleteSql = "DELETE FROM personal_timetable WHERE course_id = ?";
+            try (Connection connection = dc.getConnection();
+                 PreparedStatement stmt = connection.prepareStatement(deleteSql)) {
+
+                stmt.setInt(1, courseId);
+
+                int affectedRows = stmt.executeUpdate();
+                System.out.println(affectedRows + " 条课程数据被删除！");
+            } catch (SQLException e) {
+                System.out.println("SQL Exception: " + e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Number Format Exception: " + e.getMessage());
+            }
+        } else {
+            System.out.println("无效的选择！");
+        }
     }
+
 }
