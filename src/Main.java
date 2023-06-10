@@ -1,6 +1,5 @@
 
 import Common.Obj.obj;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -120,13 +119,13 @@ public class Main {
                 if (loginSuccess) {
                     root_id = obj.lg1.getrootId();
                     while (true) {
-                        System.out.println("请选择要使用的功能：\n1.录入员工信息\n2.记录账单\n3.录入器材信息\n4.查询员工信息\n5.个人课程管理\n" +
-                                "6.公共课程管理\n7.查看反馈\n8.查询账单\n9.器材查询");
+                        System.out.println("请选择要使用的功能：\n1.员工管理\n2.记录账单\n3.录入器材信息\n4.用户管理\n5.个人课程管理\n" +
+                                "6.公共课程管理\n7.查看反馈\n8.查询账单\n9.器材查询\n");
                         int function1 = obj.ip.getInput(sc, "请输入功能编号：", 1, 9);
 
                         switch (function1) {
                             case 1: {
-                                obj.ed.emp_data();
+                                obj.em.manageEmployee();
                                 break;
                             }
                             case 2: {
@@ -138,7 +137,7 @@ public class Main {
                                 break;
                             }
                             case 4: {
-                                obj.edq.empdataquery();
+                                obj.um.userManagement();
                                 break;
                             }
                             case 5: {

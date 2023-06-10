@@ -14,7 +14,6 @@ public class Registration {
 
             ResultSet resultSet = null;
             int b = 0;
-
             while (true) {
                 String cus_id = null;
                 String cus_pswd = null;
@@ -88,7 +87,5 @@ public class Registration {
             System.err.println("注册失败：" + e.getMessage());
         }
     }
-
-
 }
 

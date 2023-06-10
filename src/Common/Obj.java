@@ -15,10 +15,8 @@ public class Obj {
         public static EdPersonData epd;
         public static QueryCource qc;
         public static QueryPersonalCource qpc;
-        public static EmpData ed;
         public static Spend sp;
         public static EquRegistration er;
-        public static EmpDataQuery edq;
         public static PersonalCourseManagement pcm;
         public static PublicCourseManagement pcm1;
         public static FeedBack fd;
@@ -26,6 +24,8 @@ public class Obj {
         public static QuerySpend qs;
         public static ManEqu ma;
         public static IntPut ip;
+        public  static UserManagement um;
+        public static EmpManagemt em;
 
         public static void initializeObjects() {
             pd = new Personal_Data();
@@ -36,10 +36,8 @@ public class Obj {
             epd = new EdPersonData();
             qc = new QueryCource();
             qpc = new QueryPersonalCource();
-            ed = new EmpData();
             sp = new Spend();
             er = new EquRegistration();
-            edq = new EmpDataQuery();
             pcm = new PersonalCourseManagement();
             pcm1 = new PublicCourseManagement();
             fd = new FeedBack();
@@ -47,6 +45,8 @@ public class Obj {
             qs = new QuerySpend();
             ma = new ManEqu();
             ip = new IntPut();
+            um=new UserManagement();
+            em = new EmpManagemt();
         }
     }
 }
